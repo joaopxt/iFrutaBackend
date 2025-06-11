@@ -21,3 +21,7 @@ Este projeto foi desenvolvido para a disciplina de **Desenvolvimento WEB** e con
 - **Class Validator**: Para validação de dados.
 - **Swagger**: Para documentação da API.
 - **Bcrypt**: Para hash de senhas.
+
+## Acesso ao projeto
+
+- https://github.com/joaopxt/iFrutaBackend/tree/main
