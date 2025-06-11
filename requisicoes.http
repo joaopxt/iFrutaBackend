@@ -1,215 +1,153 @@
-###
-
-GET http://localhost:3000/produtos HTTP/1.1
-
-###
-
-GET http://localhost:3000/produtos/3 HTTP/1.1
-
-###
-
-POST http://localhost:3000/produtos HTTP/1.1 
+# Auth Controller
+POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "nome": "Produto 1",
-    "preco": 9.01,
-    "emailEmpresa": "teste@mail.com",
-    "dataValidade": "2025-06-12",
-    "categoria": 1
+  "nomeUsuario": "joaoUser",
+  "nome": "João User",
+  "senha": "123456",
+  "email": "joaoUser@mail.com",
+  "role": "USER"
 }
 
-### 
-PATCH http://localhost:3000/produtos/1 HTTP/1.1
-Content-Type: application/json
-
-{
-    "nome": "Produto 42",
-    "preco": 9.98
-}
-
-### 
-
-DELETE http://localhost:3000/produtos/1 HTTP/1.1
-
-#####################################################################
-### Categorias
-
-GET http://localhost:3000/categorias HTTP/1.1
-
-###
-
-GET http://localhost:3000/categorias/1 HTTP/1.1
-
-###
-
-POST http://localhost:3000/categorias HTTP/1.1 
-Content-Type: application/json
-
-{
-    "nome": "Categoria 1",
-    "ativa": false
-}
-
-### 
-PATCH http://localhost:3000/categorias/1 HTTP/1.1
-Content-Type: application/json
-
-{
-    "nome": "Categoria 7",
-    "ativa": true
-}
-
-### 
-
-DELETE http://localhost:3000/categorias/2 HTTP/1.1
-
-
-
-####################################
-### Requisições para teste do módulo de autenticação
-
-### Realizar registro
-
-POST http://localhost:3000/auth/register 
-Content-Type: application/json
-
-{
-    "nomeUsuario":"joaoUser",
-    "nome":"Joao User",
-    "senha":"123456",    
-    "email":"joaoUser@mail.com"
-}
-
-### Realizar login
-
+### Login
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "nomeUsuario":"joaoUser","senha":"123456"
+  "nomeUsuario": "joaoManager",
+  "senha": "123456"
 }
 
-### Inserir sem token válido (Erro)
+### Logout
+POST http://localhost:3000/auth/logout
 
-POST http://localhost:3000/produtos HTTP/1.1 
+### Remember user
+POST http://localhost:3000/auth/remember
+
+### Produtos Controller
+POST http://localhost:3000/produtos
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNzg2MywiZXhwIjoxNzQ5NjExNDYzfQ.vQzxgCcyVduIK8bTaybbAFsg9XOJEL-nh33QT0GfumA
+
+{
+  "nome": "Produto 1",
+  "preco": 9.99,
+  "emailEmpresa": "empresa@example.com",
+  "dataValidade": "2025-12-31",
+  "categoriaId": 1
+}
+
+### Find ALL PRODUCTS
+GET http://localhost:3000/produtos
+
+### Find one product
+GET http://localhost:3000/produtos/1
+
+### Update one product
+PATCH http://localhost:3000/produtos/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIiLCJyb2xlIjoiTUFOQUdFUiIsImlhdCI6MTc0OTYwODA4NywiZXhwIjoxNzQ5NjExNjg3fQ.BFnbdYcLptAVzjLn47RXghnmZGtQ9io4zkjnULxrkAc
+
+{
+  "nome": "Banana Prata"
+}
+
+### Delete product
+DELETE http://localhost:3000/produtos/1
+
+### Categorias Controller
+POST http://localhost:3000/categorias
 Content-Type: application/json
 
 {
-    "nome": "Produto 101",
-    "preco": 7.78,
-    "emailEmpresa": "mail@mail.com",
-    "dataValidade": "2025-06-14",
-    "categoria": 1
+  "nome": "Categoria 1",
+  "ativa": true
 }
 
-### Inserir com token válido
+### Find all categorias
+GET http://localhost:3000/categorias
 
-POST http://localhost:3000/produtos HTTP/1.1 
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsIm5vbWVVc3VhcmlvIjoiZGllZ28zIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzQ3NTc1OTY1LCJleHAiOjE3NDc1Nzk1NjV9.MzZ5y9ztbWjrQ0Ta3RXKFx8zm8DWmBShbUuc8thYYq0
+### Find one categoria
+GET http://localhost:3000/categorias/1
 
-{
-    "nome": "Produto 19 pelo diego2",
-    "preco": 2.18,
-    "emailEmpresa": "mail@mail.com",
-    "dataValidade": "2025-06-18",
-    "categoriaId": 2
-}
-
-###########################################################################
-### EXEMPLOS DE ROTAS UTILIZADAS PARA IMPLEMENTAÇÃO DE "AUTORIZAÇÃO"
-
-### Realizar registro
-
-POST http://localhost:3000/auth/register 
+### Update categoria
+PATCH http://localhost:3000/categorias/1
 Content-Type: application/json
 
 {
-    "nomeUsuario":"joaoManagerOFC",
-    "nome":"Joao ManagerOFC",
-    "senha":"123456",    
-    "email":"joao2@mail.com",
-    "role": "MANAGER"
+  "nome": "Frutas"
 }
 
-### Realizar login
+### Delete categoria
+DELETE http://localhost:3000/categorias/1
 
-POST http://localhost:3000/auth/login
+### Loja Controller
+POST http://localhost:3000/loja
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIiLCJyb2xlIjoiTUFOQUdFUiIsImlhdCI6MTc0OTYwODA4NywiZXhwIjoxNzQ5NjExNjg3fQ.BFnbdYcLptAVzjLn47RXghnmZGtQ9io4zkjnULxrkAc
 
 {
-    "nomeUsuario":"joaoManagerOFC","senha":"123456"
+  "cnpj": 12345678901234,
+  "nome": "Loja 1",
+  "horarioFuncionamento": "08:00 - 18:00",
+  "endereco": "Rua Exemplo, 123",
+  "userId": 1
 }
 
-### 
+### Find all lojas
+GET http://localhost:3000/loja
 
-GET http://localhost:3000/produtos HTTP/1.1
+### Find one loja
+GET http://localhost:3000/loja/1
 
-### Listar todos os produtos com categoria definida
-
-GET http://localhost:3000/produtos/?categoria=2 HTTP/1.1
-
-### Listar produto específico
-
-GET http://localhost:3000/produtos/16 HTTP/1.1
-
-### Editar produto utilizando token válido
-
-PATCH http://localhost:3000/produtos/3 HTTP/1.1
+### Update loja
+PATCH http://localhost:3000/loja/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiZGllZ28yIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NDc1OTUxODYsImV4cCI6MTc0NzU5ODc4Nn0.-Fi4mRWbRF5RU3-awsje-OzaaSkmOJPfzBnKK7EAtxM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIiLCJyb2xlIjoiTUFOQUdFUiIsImlhdCI6MTc0OTYwODA4NywiZXhwIjoxNzQ5NjExNjg3fQ.BFnbdYcLptAVzjLn47RXghnmZGtQ9io4zkjnULxrkAc
 
 {
-    "nome": "Produto 103 alterado",
-    "preco": 9.02
+  "nome": "Frutaria do João"
 }
 
-### Remover produto utilizando token válido
+### Delete loja
+DELETE http://localhost:3000/loja/1
 
-DELETE http://localhost:3000/produtos/2 HTTP/1.1
+### Add produto to loja
+POST http://localhost:3000/loja/1/produtos/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIiLCJyb2xlIjoiTUFOQUdFUiIsImlhdCI6MTc0OTYwODA4NywiZXhwIjoxNzQ5NjExNjg3fQ.BFnbdYcLptAVzjLn47RXghnmZGtQ9io4zkjnULxrkAc
+
+### Cliente Controller
+POST http://localhost:3000/cliente
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsIm5vbWVVc3VhcmlvIjoiZGllZ28zIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzQ3NTc1ODQyLCJleHAiOjE3NDc1Nzk0NDJ9.FdQaASb1qXwApZ8Ea7fPSw9-n5GLrnzx929EPx-cgeU
-
-
-
-### Criar loja autenticado
-
-POST http://localhost:3000/loja HTTP/1.1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE0LCJub21lVXN1YXJpbyI6ImpvYW9NYW5hZ2VyT0ZDIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NDk1ODE3MTcsImV4cCI6MTc0OTU4NTMxN30.ZhcBV9jqiF6MV_5RWH3YDPEyLTElkeQYx3IQtkMl6iQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNzg2MywiZXhwIjoxNzQ5NjExNDYzfQ.vQzxgCcyVduIK8bTaybbAFsg9XOJEL-nh33QT0GfumA
 
 {
-    "cnpj": 43210987654321,
-    "nome": "Frutaria do João Manager",
-    "horarioFuncionamento": "Ter-Sex / 06:00-18:00",
-    "endereco": "Rua 2 sul",
-    "userId": 14
+  "dataNascimento": "1990-01-01",
+  "celular": 123456789,
+  "endereco": "Rua Cliente, 456",
+  "cpf": 12345678901,
+  "userId": 2
 }
 
-### Buscar todas as lojas
+### Find all clientes
+GET http://localhost:3000/cliente
 
-GET http://localhost:3000/loja HTTP/1.1
+### Find one cliente
+GET http://localhost:3000/cliente/1
 
-### Buscar loja específica
-
-GET http://localhost:3000/loja/2 HTTP/1.1
-
-### Adicionar produto à loja
-
-POST http://localhost:3000/loja/1/produtos/3 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE0LCJub21lVXN1YXJpbyI6ImpvYW9NYW5hZ2VyT0ZDIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NDk1ODYyMDQsImV4cCI6MTc0OTU4OTgwNH0.5qMgDB8_gA2ETGz4pwjnPxkaAH6WuiTE7WkT2l6G5ok
-
-### Criar cliente autenticado
-
-POST http://localhost:3000/cliente HTTP/1.1
+### Update cliente
+PATCH http://localhost:3000/cliente/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNjgxNSwiZXhwIjoxNzQ5NjEwNDE1fQ.uczAAXiNV8GMPw1ZXae9KkKa_yYW1M66ub_t2hafbKs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNzg2MywiZXhwIjoxNzQ5NjExNDYzfQ.vQzxgCcyVduIK8bTaybbAFsg9XOJEL-nh33QT0GfumA
 
 {
-    "dataNascimento": "10/12/1977",
-    "celular": 61981292779,
-    "endereco": "Rua 2 sul",
-    "cpf": 88177068172,
-    "userId": 1
+  "endereco": "Rua Atualizada, 789"
 }
+
+### Delete cliente
+DELETE http://localhost:3000/cliente/1
+
+### Favoritar loja
+POST http://localhost:3000/cliente/1/loja/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNzg2MywiZXhwIjoxNzQ5NjExNDYzfQ.vQzxgCcyVduIK8bTaybbAFsg9XOJEL-nh33QT0GfumA
