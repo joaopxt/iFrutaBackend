@@ -1,3 +1,4 @@
+import { Cliente } from 'src/cliente/entities/cliente.entity';
 import { Produto } from 'src/produtos/entities/produto.entity';
 import { User } from 'src/user/entities/user.entity';
 import {
@@ -35,6 +36,9 @@ export class Loja {
   userId: number;
 
   @ManyToMany(() => Produto, (produto) => produto.lojas)
-  @JoinTable()
+  @JoinTable({ name: 'estoque_produtos' })
   produtos: Produto[];
+
+  @ManyToMany(() => Cliente, (cliente) => cliente.favoritos)
+  favoritados: Cliente[];
 }

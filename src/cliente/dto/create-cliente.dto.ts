@@ -12,4 +12,7 @@ export class CreateClienteDto {
 
   @IsNumber()
   cpf: number;
+
+  @IsNumber()
+  userId: number;
 }

@@ -1,8 +1,11 @@
+import { Loja } from 'src/loja/entities/loja.entity';
 import { User } from 'src/user/entities/user.entity';
 import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -27,4 +30,11 @@ export class Cliente {
   @OneToOne(() => User)
   @JoinColumn()
   user: User;
+
+  @Column()
+  userId: number;
+
+  @ManyToMany(() => Loja, (loja) => loja.favoritados)
+  @JoinTable({ name: 'lojas_favoritas' })
+  favoritos: Loja[];
 }

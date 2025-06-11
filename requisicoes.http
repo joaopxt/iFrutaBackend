@@ -75,10 +75,10 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "nomeUsuario":"diego3",
-    "nome":"Diego Rod3",
+    "nomeUsuario":"joaoUser",
+    "nome":"Joao User",
     "senha":"123456",    
-    "email":"diego2@mail.com"
+    "email":"joaoUser@mail.com"
 }
 
 ### Realizar login
@@ -87,7 +87,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "nomeUsuario":"diego3","senha":"123456"
+    "nomeUsuario":"joaoUser","senha":"123456"
 }
 
 ### Inserir sem token válido (Erro)
@@ -199,3 +199,17 @@ GET http://localhost:3000/loja/2 HTTP/1.1
 
 POST http://localhost:3000/loja/1/produtos/3 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE0LCJub21lVXN1YXJpbyI6ImpvYW9NYW5hZ2VyT0ZDIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NDk1ODYyMDQsImV4cCI6MTc0OTU4OTgwNH0.5qMgDB8_gA2ETGz4pwjnPxkaAH6WuiTE7WkT2l6G5ok
+
+### Criar cliente autenticado
+
+POST http://localhost:3000/cliente HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNjgxNSwiZXhwIjoxNzQ5NjEwNDE1fQ.uczAAXiNV8GMPw1ZXae9KkKa_yYW1M66ub_t2hafbKs
+
+{
+    "dataNascimento": "10/12/1977",
+    "celular": 61981292779,
+    "endereco": "Rua 2 sul",
+    "cpf": 88177068172,
+    "userId": 1
+}
