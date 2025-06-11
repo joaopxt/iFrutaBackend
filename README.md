@@ -1,4 +1,4 @@
-# Projeto de Desenvolvimento WEB - Lojinha
+# Projeto de Desenvolvimento WEB - iFruta
 
 Este projeto foi desenvolvido para a disciplina de **Desenvolvimento WEB** e consiste em uma aplicação backend para gerenciar uma loja virtual, incluindo funcionalidades de autenticação, gerenciamento de produtos, categorias, clientes e lojas. O objetivo é aplicar conceitos de desenvolvimento backend utilizando o framework **NestJS** e boas práticas de programação.
 
