@@ -8,6 +8,11 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ClienteModule } from './cliente/cliente.module';
 import { LojaModule } from './loja/loja.module';
+import { CartsModule } from './carts/carts.module';
+import { CartItemsModule } from './cart-items/cart-items.module';
+import { VendasModule } from './vendas/vendas.module';
+import { FormaPagamentoModule } from './forma-pagamento/forma-pagamento.module';
+import { StatusModule } from './status/status.module';
 
 @Module({
   imports: [
@@ -23,6 +28,11 @@ import { LojaModule } from './loja/loja.module';
     AuthModule,
     ClienteModule,
     LojaModule,
+    CartsModule,
+    CartItemsModule,
+    VendasModule,
+    FormaPagamentoModule,
+    StatusModule,
   ],
 })
 export class AppModule {}

@@ -3,11 +3,11 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "nomeUsuario": "joaoUser",
-  "nome": "João User",
+  "nomeUsuario": "joaoManager2",
+  "nome": "João Manager2",
   "senha": "123456",
-  "email": "joaoUser@mail.com",
-  "role": "USER"
+  "email": "joaoManager2@mail.com",
+  "role": "MANAGER"
 }
 
 ### Login
@@ -15,7 +15,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "nomeUsuario": "joaoManager",
+  "nomeUsuario": "joaoManager2",
   "senha": "123456"
 }
 
@@ -28,14 +28,16 @@ POST http://localhost:3000/auth/remember
 ### Produtos Controller
 POST http://localhost:3000/produtos
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNzg2MywiZXhwIjoxNzQ5NjExNDYzfQ.vQzxgCcyVduIK8bTaybbAFsg9XOJEL-nh33QT0GfumA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIyIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NTAwODk1OTEsImV4cCI6MTc1MDA5MzE5MX0.fUlE6lN2wFTWsHskoevEOBdVNURDL4zTboqNelCwp8o
 
 {
-  "nome": "Produto 1",
-  "preco": 9.99,
-  "emailEmpresa": "empresa@example.com",
-  "dataValidade": "2025-12-31",
-  "categoriaId": 1
+  "nome": "Alface",
+  "preco": 4.00,
+  "emailEmpresa": "verduraPedro@example.com",
+  "dataValidade": "2025-08-31",
+  "categoriaId": 2,
+  "lojaId": 2
+
 }
 
 ### Find ALL PRODUCTS
@@ -54,14 +56,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc
 }
 
 ### Delete product
-DELETE http://localhost:3000/produtos/1
+DELETE http://localhost:3000/produtos/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIxIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NTAwODgzNDgsImV4cCI6MTc1MDA5MTk0OH0.3Md0VZvD2DeCGCC6oqvOTMTWhwZN5ECKhiQWqnrEqd8
 
 ### Categorias Controller
 POST http://localhost:3000/categorias
 Content-Type: application/json
 
 {
-  "nome": "Categoria 1",
+  "nome": "Verduras",
   "ativa": true
 }
 
@@ -85,14 +88,14 @@ DELETE http://localhost:3000/categorias/1
 ### Loja Controller
 POST http://localhost:3000/loja
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIiLCJyb2xlIjoiTUFOQUdFUiIsImlhdCI6MTc0OTYwODA4NywiZXhwIjoxNzQ5NjExNjg3fQ.BFnbdYcLptAVzjLn47RXghnmZGtQ9io4zkjnULxrkAc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIyIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NTAwODk1OTEsImV4cCI6MTc1MDA5MzE5MX0.fUlE6lN2wFTWsHskoevEOBdVNURDL4zTboqNelCwp8o
 
 {
   "cnpj": 12345678901234,
-  "nome": "Loja 1",
-  "horarioFuncionamento": "08:00 - 18:00",
-  "endereco": "Rua Exemplo, 123",
-  "userId": 1
+  "nome": "Verduraria do Pedro",
+  "horarioFuncionamento": "06:00 - 20:00",
+  "endereco": "Avenida Exemplo, 123",
+  "userId": 6
 }
 
 ### Find all lojas

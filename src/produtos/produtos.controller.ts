@@ -1,5 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import { Controller, Get, Post, Body, Patch, Request, Delete, UseGuards, Query, Param} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Request,
+  Delete,
+  UseGuards,
+  Query,
+  Param,
+} from '@nestjs/common';
 import { ProdutosService } from './produtos.service';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
@@ -14,7 +25,7 @@ export class ProdutosController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'), RolesGuard) // @@ importante
-  @Roles(UserRole.USER,UserRole.ADMIN)
+  @Roles(UserRole.MANAGER, UserRole.ADMIN)
   create(@Body() createProdutoDto: CreateProdutoDto) {
     return this.produtosService.create(createProdutoDto);
   }
@@ -32,14 +43,14 @@ export class ProdutosController {
 
   @Patch(':id')
   @UseGuards(AuthGuard('jwt'), RolesGuard) // @@ importante
-  @Roles(UserRole.MANAGER)  
+  @Roles(UserRole.MANAGER)
   update(@Param('id') id: string, @Body() updateProdutoDto: UpdateProdutoDto) {
     return this.produtosService.update(+id, updateProdutoDto);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'), RolesGuard) // @@ importante
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.MANAGER)
   remove(@Param('id') id: string) {
     return this.produtosService.remove(+id);
   }

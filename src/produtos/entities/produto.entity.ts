@@ -40,6 +40,10 @@ export class Produto {
   @Column()
   categoriaId: number;
 
-  @ManyToMany(() => Loja, (loja) => loja.produtos)
-  lojas: Loja[];
+  @ManyToOne(() => Loja, (loja) => loja.produtos)
+  @JoinColumn({ name: 'lojaId' })
+  loja: Loja;
+
+  @Column()
+  lojaId: number;
 }

@@ -1,12 +1,14 @@
+import { Cart } from 'src/carts/entities/cart.entity';
 import { Cliente } from 'src/cliente/entities/cliente.entity';
 import { Produto } from 'src/produtos/entities/produto.entity';
 import { User } from 'src/user/entities/user.entity';
+import { Venda } from 'src/vendas/entities/venda.entity';
 import {
   Column,
   Entity,
   JoinColumn,
-  JoinTable,
   ManyToMany,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -35,10 +37,15 @@ export class Loja {
   @Column()
   userId: number;
 
-  @ManyToMany(() => Produto, (produto) => produto.lojas)
-  @JoinTable({ name: 'estoque_produtos' })
+  @OneToMany(() => Produto, (produto) => produto.loja)
   produtos: Produto[];
 
   @ManyToMany(() => Cliente, (cliente) => cliente.favoritos)
   favoritados: Cliente[];
+
+  @OneToMany(() => Cart, (cart) => cart.loja)
+  carts: Cart[];
+
+  @OneToMany(() => Venda, (venda) => venda.loja)
+  vendas: Venda[];
 }

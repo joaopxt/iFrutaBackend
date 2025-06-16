@@ -11,6 +11,7 @@ import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
 import { Produto } from './entities/produto.entity';
 import { Categoria } from 'src/categorias/entities/categoria.entity';
+import { Loja } from 'src/loja/entities/loja.entity';
 
 @Injectable()
 export class ProdutosService {
@@ -19,6 +20,8 @@ export class ProdutosService {
     private produtoRepository: Repository<Produto>,
     @InjectRepository(Categoria)
     private categoriaRepository: Repository<Categoria>,
+    @InjectRepository(Loja)
+    private lojaRepository: Repository<Loja>,
   ) {}
 
   async create(createProdutoDto: CreateProdutoDto): Promise<Produto> {
@@ -32,9 +35,32 @@ export class ProdutosService {
       );
     }
 
+    const loja = await this.lojaRepository.findOne({
+      where: { id: createProdutoDto.lojaId },
+      relations: ['produtos'],
+    });
+
+    if (!loja) {
+      throw new NotFoundException(
+        `Loja com id ${createProdutoDto.lojaId} não encontrada`,
+      );
+    }
+
+    const produtoExistente = await this.produtoRepository.findOne({
+      where: {
+        nome: createProdutoDto.nome, // Normaliza o nome
+        loja: { id: createProdutoDto.lojaId }, // Verifica se o produto pertence à loja
+      },
+    });
+
+    if (produtoExistente) {
+      throw new Error(`Produto já registrado`);
+    }
+
     const produto = this.produtoRepository.create({
       ...createProdutoDto,
       categoria,
+      loja,
     });
 
     return this.produtoRepository.save(produto);
@@ -56,7 +82,6 @@ export class ProdutosService {
   async findOne(id: number): Promise<Produto> {
     const produto = await this.produtoRepository.findOne({
       where: { id },
-      relations: ['lojas'],
     });
     if (!produto) {
       throw new NotFoundException(`Produto com id: ${id} não encontrado`);

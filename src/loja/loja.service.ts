@@ -67,7 +67,6 @@ export class LojaService {
   async addProduto(lojaId: number, produtoId: number) {
     const produto = await this.produtoRepository.findOne({
       where: { id: produtoId },
-      relations: ['lojas'],
     });
 
     if (!produto)
@@ -77,12 +76,12 @@ export class LojaService {
 
     const loja = await this.findOne(lojaId);
 
-    if (loja.produtos.some((p) => p.id === produtoId)) {
+    if (produto.loja && produto.loja.id === lojaId) {
       throw new Error(`Produto com id: ${produtoId} já está associado à loja`);
     }
 
-    loja.produtos = [...(loja.produtos || []), produto];
-    await this.lojaRepository.save(loja);
+    produto.loja = loja;
+    await this.produtoRepository.save(produto);
 
     return await this.findOne(lojaId);
   }
