@@ -16,7 +16,8 @@ export class Cart {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => Cliente)
+  @ManyToOne(() => Cliente, (cliente) => cliente.carts)
+  @JoinColumn()
   cliente: Cliente;
 
   @Column()
@@ -31,6 +32,9 @@ export class Cart {
   @ManyToOne(() => Loja, (loja) => loja.carts)
   @JoinColumn()
   loja: Loja;
+
+  @Column()
+  lojaId: number;
 
   @OneToMany(() => CartItem, (cartItem) => cartItem.cart)
   items: CartItem[];

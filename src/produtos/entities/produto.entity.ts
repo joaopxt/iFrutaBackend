@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+import { CartItem } from 'src/cart-items/entities/cart-item.entity';
 import { Categoria } from 'src/categorias/entities/categoria.entity';
 import { Loja } from 'src/loja/entities/loja.entity';
 import {
@@ -9,6 +10,7 @@ import {
   ManyToOne,
   JoinColumn,
   ManyToMany,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -46,4 +48,7 @@ export class Produto {
 
   @Column()
   lojaId: number;
+
+  @OneToMany(() => CartItem, (cartItem) => cartItem.produto)
+  cartItems: CartItem[];
 }

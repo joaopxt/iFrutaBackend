@@ -13,6 +13,7 @@ import { CartItemsModule } from './cart-items/cart-items.module';
 import { VendasModule } from './vendas/vendas.module';
 import { FormaPagamentoModule } from './forma-pagamento/forma-pagamento.module';
 import { StatusModule } from './status/status.module';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -34,5 +35,6 @@ import { StatusModule } from './status/status.module';
     FormaPagamentoModule,
     StatusModule,
   ],
+  providers: [AppService],
 })
 export class AppModule {}

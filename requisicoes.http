@@ -15,7 +15,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "nomeUsuario": "joaoManager2",
+  "nomeUsuario": "joaoManager1",
   "senha": "123456"
 }
 
@@ -28,11 +28,11 @@ POST http://localhost:3000/auth/remember
 ### Produtos Controller
 POST http://localhost:3000/produtos
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIyIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NTAwODk1OTEsImV4cCI6MTc1MDA5MzE5MX0.fUlE6lN2wFTWsHskoevEOBdVNURDL4zTboqNelCwp8o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIxIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NTAxMzU4NTQsImV4cCI6MTc1MDEzOTQ1NH0.uvBVOPsgEtKDkRXhWCQMVdpzAtAj5CfMJ7ZZ6gt-ERM
 
 {
-  "nome": "Alface",
-  "preco": 4.00,
+  "nome": "Rucula",
+  "preco": 3.00,
   "emailEmpresa": "verduraPedro@example.com",
   "dataValidade": "2025-08-31",
   "categoriaId": 2,
@@ -123,14 +123,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc
 ### Cliente Controller
 POST http://localhost:3000/cliente
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNzg2MywiZXhwIjoxNzQ5NjExNDYzfQ.vQzxgCcyVduIK8bTaybbAFsg9XOJEL-nh33QT0GfumA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDEzMDI5MSwiZXhwIjoxNzUwMTMzODkxfQ.WacFiwo64P9q_20tlkIIq-NmxBZ1McdJlZoL2176Svw
 
 {
   "dataNascimento": "1990-01-01",
   "celular": 123456789,
   "endereco": "Rua Cliente, 456",
   "cpf": 12345678901,
-  "userId": 2
+  "userId": 1
 }
 
 ### Find all clientes
@@ -154,3 +154,30 @@ DELETE http://localhost:3000/cliente/1
 ### Favoritar loja
 POST http://localhost:3000/cliente/1/loja/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNzg2MywiZXhwIjoxNzQ5NjExNDYzfQ.vQzxgCcyVduIK8bTaybbAFsg9XOJEL-nh33QT0GfumA
+
+### New Cart
+POST http://localhost:3000/carts/newCart
+Content-Type: application/json
+
+{
+  "createCartDto": {
+    "clienteId": 1,
+    "lojaId": 2
+  },
+  "produtoId": 4
+}
+
+### Get one cart
+GET http://localhost:3000/carts/1
+
+### Create Cart Item
+POST http://localhost:3000/cart-items
+Content-Type: application/json
+
+{
+  "quantity": 1,
+  "produtoId": 5,
+  "cartId": 1
+}
+
+

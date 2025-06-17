@@ -8,8 +8,5 @@ export class CreateCartItemDto {
   produtoId: number;
 
   @IsNumber()
-  subtotal: number;
-
-  @IsNumber()
   cartId: number;
 }

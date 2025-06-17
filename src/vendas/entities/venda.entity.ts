@@ -42,5 +42,6 @@ export class Venda {
   statusId: number;
 
   @ManyToOne(() => Loja, (loja) => loja.vendas)
+  @JoinColumn()
   loja: Loja;
 }

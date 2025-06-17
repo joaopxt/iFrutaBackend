@@ -1,3 +1,4 @@
+import { Cart } from 'src/carts/entities/cart.entity';
 import { Loja } from 'src/loja/entities/loja.entity';
 import { User } from 'src/user/entities/user.entity';
 import {
@@ -6,6 +7,7 @@ import {
   JoinColumn,
   JoinTable,
   ManyToMany,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -37,4 +39,7 @@ export class Cliente {
   @ManyToMany(() => Loja, (loja) => loja.favoritados)
   @JoinTable({ name: 'lojas_favoritas' })
   favoritos: Loja[];
+
+  @OneToMany(() => Cart, (cart) => cart.cliente)
+  carts: Cart[];
 }
