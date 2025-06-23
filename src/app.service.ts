@@ -4,6 +4,9 @@ import { DataSource, EntityTarget } from 'typeorm';
 import { FormaPagamento } from './forma-pagamento/entities/forma-pagamento.entity';
 import { Status } from './status/entities/status.entity';
 import { Categoria } from './categorias/entities/categoria.entity';
+import { User } from './user/entities/user.entity';
+import { Loja } from './loja/entities/loja.entity';
+import { Cliente } from './cliente/entities/cliente.entity';
 
 @Injectable()
 export class AppService {
@@ -13,7 +16,9 @@ export class AppService {
   ) {}
 
   async verificarTabelaVazia(
-    repositorio: EntityTarget<FormaPagamento | Status | Categoria>,
+    repositorio: EntityTarget<
+      FormaPagamento | Status | Categoria | User | Loja | Cliente
+    >,
   ) {
     const repository = this.dataSource.getRepository(repositorio);
     const count = await repository.count();
@@ -82,6 +87,73 @@ export class AppService {
       });
     } else {
       console.log('Tabela Categorias já populada!');
+    }
+
+    const userVazia = this.verificarTabelaVazia(User);
+
+    if (await userVazia) {
+      await this.dataSource.transaction(async (db) => {
+        const admin = db.create(User, {
+          nomeUsuario: 'joaoAdmin',
+          nome: 'João Admin',
+          senha: '123456',
+          email: 'joaoAdmin@mail.com',
+          role: 'ADMIN',
+        });
+        const user = db.create(User, {
+          nomeUsuario: 'joaoUser',
+          nome: 'João User',
+          senha: '123456',
+          email: 'joaoUser@mail.com',
+          role: 'USER',
+        });
+        const manager = db.create(User, {
+          nomeUsuario: 'joaoManager',
+          nome: 'João Manager',
+          senha: '123456',
+          email: 'joaoManager@mail.com',
+          role: 'MANAGER',
+        });
+        await db.save(admin);
+        await db.save(user);
+        await db.save(manager);
+      });
+    } else {
+      console.log('Tabela User já populada!');
+    }
+
+    const lojaVazia = this.verificarTabelaVazia(Loja);
+
+    if (await lojaVazia) {
+      await this.dataSource.transaction(async (db) => {
+        const loja = db.create(Loja, {
+          cnpj: 12345678901234,
+          nome: 'Verduraria do João',
+          horarioFuncionamento: '06:00 - 20:00',
+          endereco: 'Avenida Exemplo, 123',
+          userId: 3,
+        });
+        await db.save(loja);
+      });
+    } else {
+      console.log('Tabela Loja já populada!');
+    }
+
+    const clienteVazia = this.verificarTabelaVazia(Cliente);
+
+    if (await clienteVazia) {
+      await this.dataSource.transaction(async (db) => {
+        const cliente = db.create(Cliente, {
+          dataNascimento: '1990-01-01',
+          celular: 123456789,
+          endereco: 'Rua Cliente, 456',
+          cpf: 12345678901,
+          userId: 2,
+        });
+        await db.save(cliente);
+      });
+    } else {
+      console.log('Tabela Cliente já populada!');
     }
   }
 }

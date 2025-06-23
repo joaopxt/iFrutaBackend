@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BeforeInsert,
+  BeforeUpdate,
+} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 export enum UserRole {
@@ -33,9 +39,9 @@ export class User {
 
   @Column({
     type: 'varchar',
-    default: UserRole.USER
+    default: 'USER',
   })
-  role: UserRole;
+  role: 'ADMIN' | 'USER' | 'MANAGER';
 
   @BeforeInsert()
   @BeforeUpdate()

@@ -1,4 +1,9 @@
-# Auth Controller
+# ------------------------   FLUXO DE AUTENTICAÇÃO E OPERAÇÕES DE PERFIS   ------------------------
+
+
+### ----- Controller de usuário genérico -----
+
+### Register
 POST http://localhost:3000/auth/register
 Content-Type: application/json
 
@@ -15,7 +20,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "nomeUsuario": "joaoManager1",
+  "nomeUsuario": "joaoManager2",
   "senha": "123456"
 }
 
@@ -25,17 +30,115 @@ POST http://localhost:3000/auth/logout
 ### Remember user
 POST http://localhost:3000/auth/remember
 
+
+
+
+
+### ----- Controller da Loja -----
+
+### Register Loja
+POST http://localhost:3000/loja
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIyIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NTA3MTU0MzMsImV4cCI6MTc1MDcxOTAzM30.8AvEoAInSpqoupW9z3e9-twq3_eq1ymCb3cDU7_SBi4
+
+{
+  "cnpj": 12345678901234,
+  "nome": "Frutaria do Joao",
+  "horarioFuncionamento": "06:00 - 20:00",
+  "endereco": "Rua Exemplo, 123",
+  "userId": 4
+}
+
+### Find all lojas
+GET http://localhost:3000/loja
+
+### Find one loja
+GET http://localhost:3000/loja/1
+
+### Update loja
+PATCH http://localhost:3000/loja/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIiLCJyb2xlIjoiTUFOQUdFUiIsImlhdCI6MTc0OTYwODA4NywiZXhwIjoxNzQ5NjExNjg3fQ.BFnbdYcLptAVzjLn47RXghnmZGtQ9io4zkjnULxrkAc
+
+{
+  "nome": "Frutaria do João"
+}
+
+### Delete loja
+DELETE http://localhost:3000/loja/1
+
+
+
+
+
+### ----- Cliente Controller -----
+
+### Register Cliente
+POST http://localhost:3000/cliente
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDEzMDI5MSwiZXhwIjoxNzUwMTMzODkxfQ.WacFiwo64P9q_20tlkIIq-NmxBZ1McdJlZoL2176Svw
+
+{
+  "dataNascimento": "1990-01-01",
+  "celular": 123456789,
+  "endereco": "Rua Cliente, 456",
+  "cpf": 12345678901,
+  "userId": 1
+}
+
+### Find all clientes
+GET http://localhost:3000/cliente
+
+### Find one cliente
+GET http://localhost:3000/cliente/1
+
+### Update cliente
+PATCH http://localhost:3000/cliente/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDI3MDM0OSwiZXhwIjoxNzUwMjczOTQ5fQ.wBBQ5Odf0eJzeJnb0yWGqrBpFF6M4NfLK75vwH0n3ZI
+
+{
+  "celular": 982478523
+}
+
+### Delete cliente
+DELETE http://localhost:3000/cliente/1
+
+### Favoritar loja
+POST http://localhost:3000/cliente/1/loja/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNzg2MywiZXhwIjoxNzQ5NjExNDYzfQ.vQzxgCcyVduIK8bTaybbAFsg9XOJEL-nh33QT0GfumA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Produtos Controller
 POST http://localhost:3000/produtos
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIxIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NTAxMzU4NTQsImV4cCI6MTc1MDEzOTQ1NH0.uvBVOPsgEtKDkRXhWCQMVdpzAtAj5CfMJ7ZZ6gt-ERM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIiLCJyb2xlIjoiTUFOQUdFUiIsImlhdCI6MTc1MDcxNDgyNSwiZXhwIjoxNzUwNzE4NDI1fQ.2PdNZXRQ80u5zzKO7848cAVWvrZ_TnOugPT9epQ7Iu8
 
 {
-  "nome": "Rucula",
-  "preco": 3.00,
-  "emailEmpresa": "verduraPedro@example.com",
+  "nome": "Uva",
+  "preco": 7.50,
+  "emailEmpresa": "frutariaJoao@example.com",
   "dataValidade": "2025-08-31",
-  "categoriaId": 2,
+  "categoriaId": 1,
   "lojaId": 2
 
 }
@@ -85,75 +188,6 @@ Content-Type: application/json
 ### Delete categoria
 DELETE http://localhost:3000/categorias/1
 
-### Loja Controller
-POST http://localhost:3000/loja
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIyIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NTAwODk1OTEsImV4cCI6MTc1MDA5MzE5MX0.fUlE6lN2wFTWsHskoevEOBdVNURDL4zTboqNelCwp8o
-
-{
-  "cnpj": 12345678901234,
-  "nome": "Verduraria do Pedro",
-  "horarioFuncionamento": "06:00 - 20:00",
-  "endereco": "Avenida Exemplo, 123",
-  "userId": 6
-}
-
-### Find all lojas
-GET http://localhost:3000/loja
-
-### Find one loja
-GET http://localhost:3000/loja/1
-
-### Update loja
-PATCH http://localhost:3000/loja/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIiLCJyb2xlIjoiTUFOQUdFUiIsImlhdCI6MTc0OTYwODA4NywiZXhwIjoxNzQ5NjExNjg3fQ.BFnbdYcLptAVzjLn47RXghnmZGtQ9io4zkjnULxrkAc
-
-{
-  "nome": "Frutaria do João"
-}
-
-### Delete loja
-DELETE http://localhost:3000/loja/1
-
-### Add produto to loja
-POST http://localhost:3000/loja/1/produtos/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIiLCJyb2xlIjoiTUFOQUdFUiIsImlhdCI6MTc0OTYwODA4NywiZXhwIjoxNzQ5NjExNjg3fQ.BFnbdYcLptAVzjLn47RXghnmZGtQ9io4zkjnULxrkAc
-
-### Cliente Controller
-POST http://localhost:3000/cliente
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDEzMDI5MSwiZXhwIjoxNzUwMTMzODkxfQ.WacFiwo64P9q_20tlkIIq-NmxBZ1McdJlZoL2176Svw
-
-{
-  "dataNascimento": "1990-01-01",
-  "celular": 123456789,
-  "endereco": "Rua Cliente, 456",
-  "cpf": 12345678901,
-  "userId": 1
-}
-
-### Find all clientes
-GET http://localhost:3000/cliente
-
-### Find one cliente
-GET http://localhost:3000/cliente/1
-
-### Update cliente
-PATCH http://localhost:3000/cliente/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNzg2MywiZXhwIjoxNzQ5NjExNDYzfQ.vQzxgCcyVduIK8bTaybbAFsg9XOJEL-nh33QT0GfumA
-
-{
-  "endereco": "Rua Atualizada, 789"
-}
-
-### Delete cliente
-DELETE http://localhost:3000/cliente/1
-
-### Favoritar loja
-POST http://localhost:3000/cliente/1/loja/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNzg2MywiZXhwIjoxNzQ5NjExNDYzfQ.vQzxgCcyVduIK8bTaybbAFsg9XOJEL-nh33QT0GfumA
 
 ### New Cart
 POST http://localhost:3000/carts/newCart
@@ -162,13 +196,13 @@ Content-Type: application/json
 {
   "createCartDto": {
     "clienteId": 1,
-    "lojaId": 2
+    "lojaId": 1
   },
   "produtoId": 4
 }
 
 ### Get one cart
-GET http://localhost:3000/carts/1
+GET http://localhost:3000/carts/2
 
 ### Create Cart Item
 POST http://localhost:3000/cart-items
@@ -179,5 +213,11 @@ Content-Type: application/json
   "produtoId": 5,
   "cartId": 1
 }
+
+### Add Item to Cart
+POST http://localhost:3000/carts/addItem/2/5/2
+
+### Get cart items
+GET http://localhost:3000/cart-items
 
 

@@ -26,8 +26,8 @@ export class CartItem {
   @Column()
   produtoId: number;
 
-  @ManyToOne(() => Cart, (cart) => cart.items)
-  @JoinColumn()
+  @ManyToOne(() => Cart, (cart) => cart.items, { nullable: false })
+  @JoinColumn({ name: 'cartId' })
   cart: Cart;
 
   @Column()

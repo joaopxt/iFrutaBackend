@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { VendasService } from './vendas.service';
 import { CreateVendaDto } from './dto/create-venda.dto';
 import { UpdateVendaDto } from './dto/update-venda.dto';
@@ -12,9 +20,9 @@ export class VendasController {
     return this.vendasService.create(createVendaDto);
   }
 
-  @Get()
-  findAll() {
-    return this.vendasService.findAll();
+  @Get('/loja/:id')
+  findAll(@Param('id') id: string) {
+    return this.vendasService.findAllVendasLoja(+id);
   }
 
   @Get(':id')

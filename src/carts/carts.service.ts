@@ -7,6 +7,7 @@ import { Cart } from './entities/cart.entity';
 import { Cliente } from 'src/cliente/entities/cliente.entity';
 import { Repository } from 'typeorm';
 import { Loja } from 'src/loja/entities/loja.entity';
+import { CartItemsService } from 'src/cart-items/cart-items.service';
 
 @Injectable()
 export class CartsService {
@@ -19,6 +20,7 @@ export class CartsService {
     private readonly produtoRepository: Repository<Produto>,
     @InjectRepository(Loja)
     private readonly lojaRepository: Repository<Loja>,
+    private readonly cartItemsService: CartItemsService,
   ) {}
 
   async create(createCartDto: CreateCartDto, produtoId: number) {
@@ -60,7 +62,7 @@ export class CartsService {
   }
 
   findAll() {
-    return `This action returns all carts`;
+    return this.cartRepository.find();
   }
 
   async findOne(id: number) {
@@ -74,11 +76,42 @@ export class CartsService {
     return cart;
   }
 
-  update(id: number, updateCartDto: UpdateCartDto) {
-    return `This action updates a #${id} cart`;
+  async update(id: number, updateCartDto: UpdateCartDto) {
+    await this.findOne(id);
+    await this.cartRepository.update(id, updateCartDto);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} cart`;
+  async remove(id: number) {
+    const result = await this.cartRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Carrinho com id: ${id} não encontrado`);
+    }
+  }
+
+  async addItemToCart(cartId: number, produtoId: number, quantity: number) {
+    const cart = await this.findOne(cartId);
+
+    const produto = await this.produtoRepository.findOne({
+      where: { id: produtoId },
+    });
+    if (!produto) {
+      throw new NotFoundException(`Produto com id: ${cartId} não encontrado`);
+    }
+
+    if (!quantity || quantity < 0)
+      throw new Error('Você precisa inserir ao menos 1 item ao carrinho');
+
+    const item = await this.cartItemsService.create({
+      cartId,
+      produtoId,
+      quantity,
+    });
+
+    cart.valor = cart.valor + item.subtotal;
+    console.log('Valor do carrinho: ', cart.valor);
+    this.cartRepository.save(cart);
+
+    return item;
   }
 }

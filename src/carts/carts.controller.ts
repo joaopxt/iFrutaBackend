@@ -41,4 +41,13 @@ export class CartsController {
   remove(@Param('id') id: string) {
     return this.cartsService.remove(+id);
   }
+
+  @Post('/addItem/:cartId/:produtoId/:quantity')
+  addItemToCart(
+    @Param('cartId') cartId: string,
+    @Param('produtoId') produtoId: string,
+    @Param('quantity') quantity: string,
+  ) {
+    return this.cartsService.addItemToCart(+cartId, +produtoId, +quantity);
+  }
 }

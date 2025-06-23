@@ -7,5 +7,8 @@ export class CreateVendaDto {
 
   @IsNumber()
   @IsNotEmpty()
-  statusId: 1;
+  formaPagamentoId: number;
+
+  @IsString()
+  endereco: string;
 }

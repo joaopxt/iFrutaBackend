@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { Venda } from './entities/venda.entity';
 import { FormaPagamento } from 'src/forma-pagamento/entities/forma-pagamento.entity';
 import { Cart } from 'src/carts/entities/cart.entity';
+import { Loja } from 'src/loja/entities/loja.entity';
 
 @Injectable()
 export class VendasService {
@@ -19,6 +20,8 @@ export class VendasService {
     private readonly formaPagamentoRepository: Repository<FormaPagamento>,
     @InjectRepository(Cart)
     private readonly cartRepository: Repository<Cart>,
+    @InjectRepository(Loja)
+    private readonly lojaRepository: Repository<Loja>,
   ) {}
 
   async create(createVendaDto: CreateVendaDto) {
@@ -30,25 +33,57 @@ export class VendasService {
         `Carrinho com id #${createVendaDto.cartId} inexistente!`,
       );
 
+    const status = await this.statusRepository.findOne({
+      where: { id: 1 },
+    });
+    if (!status) throw new NotFoundException(`Status inválido`);
+
+    const formaPagamento = await this.formaPagamentoRepository.findOne({
+      where: { id: createVendaDto.formaPagamentoId },
+    });
+    if (!formaPagamento)
+      throw new NotFoundException('Forma pagamento inválida');
+
     const venda = await this.vendaRepository.create({
       ...createVendaDto,
       cart,
+      status,
+      formaPagamento,
     });
+
+    venda.loja = cart.loja;
+
+    return await this.vendaRepository.save(venda);
   }
 
-  findAll() {
-    return `This action returns all vendas`;
+  async findAllVendasLoja(id: number) {
+    const loja = await this.lojaRepository.findOne({
+      where: { id },
+    });
+
+    if (!loja) throw new NotFoundException(`Loja #${id} inexistente`);
+
+    return loja.vendas;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} venda`;
+  async findOne(id: number) {
+    const venda = await this.vendaRepository.findOne({ where: { id } });
+
+    if (!venda) throw new NotFoundException(`Venda #${id} não encontrada`);
+
+    return venda;
   }
 
-  update(id: number, updateVendaDto: UpdateVendaDto) {
-    return `This action updates a #${id} venda`;
+  async update(id: number, updateVendaDto: UpdateVendaDto) {
+    await this.findOne(id);
+    await this.vendaRepository.update(id, updateVendaDto);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} venda`;
+  async remove(id: number) {
+    const result = await this.vendaRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Venda com id: ${id} não encontrada`);
+    }
   }
 }

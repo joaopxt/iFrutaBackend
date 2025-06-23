@@ -37,15 +37,16 @@ export class CartItemsService {
         `Carrinho com id #${createCartItemDto.cartId} não encontrado!`,
       );
 
-    const cartItem = await this.cartItemRepository.create({
-      ...createCartItemDto,
+    const cartItem = this.cartItemRepository.create({
       produto,
+      produtoId: createCartItemDto.produtoId,
       cart,
+      cartId: createCartItemDto.cartId,
+      quantity: createCartItemDto.quantity,
+      subtotal: createCartItemDto.quantity * produto.preco,
     });
 
-    cartItem.subtotal = cartItem.quantity * cartItem.produto.preco;
-
-    return this.cartItemRepository.save(cartItem);
+    return await this.cartItemRepository.save(cartItem);
   }
 
   async findAll() {
