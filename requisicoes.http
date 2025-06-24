@@ -20,7 +20,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "nomeUsuario": "joaoManager2",
+  "nomeUsuario": "joaoManager",
   "senha": "123456"
 }
 
@@ -53,7 +53,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsIm5vbWVVc
 GET http://localhost:3000/loja
 
 ### Find one loja
-GET http://localhost:3000/loja/1
+GET http://localhost:3000/loja/2
 
 ### Update loja
 PATCH http://localhost:3000/loja/1
@@ -95,7 +95,7 @@ GET http://localhost:3000/cliente/1
 ### Update cliente
 PATCH http://localhost:3000/cliente/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDI3MDM0OSwiZXhwIjoxNzUwMjczOTQ5fQ.wBBQ5Odf0eJzeJnb0yWGqrBpFF6M4NfLK75vwH0n3ZI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDczODI4MywiZXhwIjoxNzUwNzQxODgzfQ.6yJBhZakdNGCrVvkeRWnusVsx4biXzeSzbh61f24kTk
 
 {
   "celular": 982478523
@@ -106,7 +106,7 @@ DELETE http://localhost:3000/cliente/1
 
 ### Favoritar loja
 POST http://localhost:3000/cliente/1/loja/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0OTYwNzg2MywiZXhwIjoxNzQ5NjExNDYzfQ.vQzxgCcyVduIK8bTaybbAFsg9XOJEL-nh33QT0GfumA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDczODI4MywiZXhwIjoxNzUwNzQxODgzfQ.6yJBhZakdNGCrVvkeRWnusVsx4biXzeSzbh61f24kTk
 
 
 
@@ -114,21 +114,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc
 
 
 
+### ----- Produtos Controller -----
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Produtos Controller
+### Create Produto
 POST http://localhost:3000/produtos
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIiLCJyb2xlIjoiTUFOQUdFUiIsImlhdCI6MTc1MDcxNDgyNSwiZXhwIjoxNzUwNzE4NDI1fQ.2PdNZXRQ80u5zzKO7848cAVWvrZ_TnOugPT9epQ7Iu8
@@ -162,62 +150,92 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5vbWVVc
 DELETE http://localhost:3000/produtos/3
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIxIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NTAwODgzNDgsImV4cCI6MTc1MDA5MTk0OH0.3Md0VZvD2DeCGCC6oqvOTMTWhwZN5ECKhiQWqnrEqd8
 
-### Categorias Controller
-POST http://localhost:3000/categorias
-Content-Type: application/json
 
-{
-  "nome": "Verduras",
-  "ativa": true
-}
 
-### Find all categorias
-GET http://localhost:3000/categorias
 
-### Find one categoria
-GET http://localhost:3000/categorias/1
 
-### Update categoria
-PATCH http://localhost:3000/categorias/1
-Content-Type: application/json
 
-{
-  "nome": "Frutas"
-}
 
-### Delete categoria
-DELETE http://localhost:3000/categorias/1
 
+### ----- Cart Controller -----
 
 ### New Cart
 POST http://localhost:3000/carts/newCart
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDc0MDc3NSwiZXhwIjoxNzUwNzQ0Mzc1fQ.AxW88lKZqqY7R5_bTOO97nkcz5MWGRkS-Vr6x_qA2j8
 
 {
   "createCartDto": {
-    "clienteId": 1,
-    "lojaId": 1
+    "clienteId": 2,
+    "lojaId": 2
   },
-  "produtoId": 4
+  "produtoId": 5
 }
 
 ### Get one cart
-GET http://localhost:3000/carts/2
+GET http://localhost:3000/carts/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDc0MDc3NSwiZXhwIjoxNzUwNzQ0Mzc1fQ.AxW88lKZqqY7R5_bTOO97nkcz5MWGRkS-Vr6x_qA2j8
+
+### Delete cart
+DELETE http://localhost:3000/carts/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIxIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NTAwODgzNDgsImV4cCI6MTc1MDA5MTk0OH0.3Md0VZvD2DeCGCC6oqvOTMTWhwZN5ECKhiQWqnrEqd8
+
+### Add Item to Cart (INATIVO)
+### POST http://localhost:3000/carts/addItem/2/5/2
+
+
+
+
+
+### ----- CartItem Controller -----
 
 ### Create Cart Item
 POST http://localhost:3000/cart-items
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDc0MDc3NSwiZXhwIjoxNzUwNzQ0Mzc1fQ.AxW88lKZqqY7R5_bTOO97nkcz5MWGRkS-Vr6x_qA2j8
 
 {
   "quantity": 1,
   "produtoId": 5,
-  "cartId": 1
+  "cartId": 3
 }
-
-### Add Item to Cart
-POST http://localhost:3000/carts/addItem/2/5/2
 
 ### Get cart items
 GET http://localhost:3000/cart-items
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIxIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NTAwODgzNDgsImV4cCI6MTc1MDA5MTk0OH0.3Md0VZvD2DeCGCC6oqvOTMTWhwZN5ECKhiQWqnrEqd8
+
+### Remove item from Cart
+DELETE http://localhost:3000/cart-items/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIxIiwicm9sZSI6Ik1BTkFHRVIiLCJpYXQiOjE3NTAwODgzNDgsImV4cCI6MTc1MDA5MTk0OH0.3Md0VZvD2DeCGCC6oqvOTMTWhwZN5ECKhiQWqnrEqd8
 
 
+
+
+
+### ----- Vendas Controller -----
+
+### Create Venda
+POST http://localhost:3000/vendas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsIm5vbWVVc3VhcmlvIjoiam9hb1VzZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDc0MDc3NSwiZXhwIjoxNzUwNzQ0Mzc1fQ.AxW88lKZqqY7R5_bTOO97nkcz5MWGRkS-Vr6x_qA2j8
+
+{
+"cartId": 3,
+"formaPagamentoId": 2,
+"endereco": "Rua teste 123"
+}
+
+### Find all vendas Loja
+GET http://localhost:3000/vendas/loja/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsIm5vbWVVc3VhcmlvIjoiam9hb01hbmFnZXIiLCJyb2xlIjoiTUFOQUdFUiIsImlhdCI6MTc1MDc0MTAyMSwiZXhwIjoxNzUwNzQ0NjIxfQ.Jc1a2jNlZ83IweQOTOY7i7oxbcHL-6hPEttvaiRcDHQ
+
+### Update venda
+PATCH http://localhost:3000/vendas/2
+Content-Type: application/json
+
+{
+  "statusId": 2
+}
+
+### Delete venda
+DELETE http://localhost:3000/vendas/1

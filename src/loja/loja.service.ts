@@ -43,7 +43,7 @@ export class LojaService {
   async findOne(id: number) {
     const loja = await this.lojaRepository.findOne({
       where: { id },
-      relations: ['produtos'],
+      relations: ['produtos', 'vendas', 'carts'],
     });
 
     if (!loja) throw new NotFoundException(`Loja #${id} não encontrada`);

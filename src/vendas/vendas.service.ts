@@ -38,6 +38,15 @@ export class VendasService {
     });
     if (!status) throw new NotFoundException(`Status inválido`);
 
+    const loja = await this.lojaRepository.findOne({
+      where: { id: cart.lojaId },
+    });
+
+    if (!loja)
+      throw new NotFoundException(
+        `Essa venda não pode ser criada! Loja com id #${cart.lojaId} inexistente`,
+      );
+
     const formaPagamento = await this.formaPagamentoRepository.findOne({
       where: { id: createVendaDto.formaPagamentoId },
     });
@@ -49,9 +58,8 @@ export class VendasService {
       cart,
       status,
       formaPagamento,
+      loja,
     });
-
-    venda.loja = cart.loja;
 
     return await this.vendaRepository.save(venda);
   }
@@ -59,6 +67,7 @@ export class VendasService {
   async findAllVendasLoja(id: number) {
     const loja = await this.lojaRepository.findOne({
       where: { id },
+      relations: ['vendas', 'carts', 'produtos'],
     });
 
     if (!loja) throw new NotFoundException(`Loja #${id} inexistente`);
